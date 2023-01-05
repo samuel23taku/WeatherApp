@@ -1,5 +1,6 @@
 package com.example.weatherapp_jetpack_compose.widgets
 
+import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
@@ -7,6 +8,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -36,8 +38,10 @@ fun WeatherAppBar(
             }
         }
     }, navigationIcon = {
-        if(!isOnMainScreen){
-            IconButton(onClick = {}) {
+        if(icon != null){
+            IconButton(onClick = {},modifier = Modifier.clickable {
+
+            }) {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Search Icon")
             }
         }

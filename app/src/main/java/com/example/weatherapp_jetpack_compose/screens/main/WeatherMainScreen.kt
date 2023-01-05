@@ -1,6 +1,9 @@
 package com.example.weatherapp_jetpack_compose.screens.main
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -40,7 +43,9 @@ fun WeatherMainScreen(navController: NavController, viewModel: WeatherMainViewMo
 @Composable
 fun MainScaffold(weather: Weather, navController: NavController) {
     Scaffold(topBar = {
-        WeatherAppBar(title = weather.city.name + ",${weather.city.country}",navController= navController)
+        WeatherAppBar(title = weather.city.name + ",${weather.city.country}",navController= navController,icon = Icons.Default.ArrowBack){
+            Log.d("Button CLick","Button clicked")
+        }
     }) {
         scaffoldPadding->
         Surface(modifier = Modifier.padding(scaffoldPadding)) {
