@@ -30,16 +30,22 @@ fun WeatherAppBar(
         Text(title, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 15.sp))
     }, actions = {
         if (isOnMainScreen) {
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+                onAddActionClicked.invoke()
+            }) {
                 Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon")
             }
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+
+            }) {
                 Icon(imageVector = Icons.Rounded.MoreVert, contentDescription = "Search Icon")
             }
         }
     }, navigationIcon = {
         if(icon != null){
-            IconButton(onClick = {},modifier = Modifier.clickable {
+            IconButton(onClick = {
+                                 navController.popBackStack()
+            },modifier = Modifier.clickable {
 
             }) {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Search Icon")
