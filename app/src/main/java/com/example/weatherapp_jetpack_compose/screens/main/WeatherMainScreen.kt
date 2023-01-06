@@ -7,8 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
@@ -29,13 +27,14 @@ import com.example.weatherapp_jetpack_compose.utils.formatDecimals
 import com.example.weatherapp_jetpack_compose.widgets.*
 
 @Composable
-fun WeatherMainScreen(navController: NavController, viewModel: WeatherMainViewModel) {
+fun WeatherMainScreen(navController: NavController, viewModel: WeatherMainViewModel, city: String?) {
+    Log.d("City","MainScreen $city")
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
         initialValue = DataOrException(
             loading = true,
         )
     ) {
-        value = viewModel.getWeather(city = "gweru")
+        value = viewModel.getWeather(city = city!!)
     }.value
 
 

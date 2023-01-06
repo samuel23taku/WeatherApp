@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WeatherApp_Jetpack_Compose</string>
+    <string name="about_app">Weather app Version 1.0</string>
 </resources>

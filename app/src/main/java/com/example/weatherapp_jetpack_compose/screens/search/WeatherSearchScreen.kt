@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.weatherapp_jetpack_compose.navigation.WeatherScreens
 import com.example.weatherapp_jetpack_compose.widgets.WeatherAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,8 +52,8 @@ fun WeatherSearchScreen(navController: NavController) {
                         .fillMaxWidth()
                         .padding(16.dp)
                         .align(Alignment.CenterHorizontally)
-                ){
-                 Log.d("Search Id","Search Screen $it")
+                ){mCity->
+                    navController.navigate(WeatherScreens.MainScreen.name+"/$mCity")
                 }
             }
         }
