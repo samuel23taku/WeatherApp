@@ -2,9 +2,11 @@ package com.example.weatherapp_jetpack_compose.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.weatherapp_jetpack_compose.screens.main.WeatherMainScreen
 import com.example.weatherapp_jetpack_compose.screens.WeatherMainViewModel
 import com.example.weatherapp_jetpack_compose.screens.search.WeatherSearchScreen
@@ -17,7 +19,13 @@ fun WeatherNavigation() {
         composable(WeatherScreens.SplashScreen.name){
             WeatherSplashScreen(navController = navController)
         }
-        composable(WeatherScreens.MainScreen.name){
+
+        val route = WeatherScreens.MainScreen.name
+        composable("$route/{city}", arguments = listOf(
+            navArgument(name = "city"){
+                type = NavType.StringType
+            }
+        )){
             val mainViewModel = hiltViewModel<WeatherMainViewModel>()
             WeatherMainScreen(navController = navController,viewModel=mainViewModel)
         }
