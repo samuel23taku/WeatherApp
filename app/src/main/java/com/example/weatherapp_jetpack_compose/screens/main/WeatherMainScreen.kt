@@ -8,44 +8,68 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.produceState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.weatherapp_jetpack_compose.data.DataOrException
 import com.example.weatherapp_jetpack_compose.model.Weather
 import com.example.weatherapp_jetpack_compose.model.WeatherItem
 import com.example.weatherapp_jetpack_compose.navigation.WeatherScreens
+import com.example.weatherapp_jetpack_compose.screens.viewmodels.SettingsViewModel
 import com.example.weatherapp_jetpack_compose.screens.viewmodels.WeatherMainViewModel
 import com.example.weatherapp_jetpack_compose.utils.formatDate
 import com.example.weatherapp_jetpack_compose.utils.formatDecimals
 import com.example.weatherapp_jetpack_compose.widgets.*
 
 @Composable
-fun WeatherMainScreen(navController: NavController, viewModel: WeatherMainViewModel, city: String?) {
-    Log.d("City","MainScreen $city")
-    val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
-        initialValue = DataOrException(
-            loading = true,
-        )
-    ) {
-        value = viewModel.getWeather(city = city!!)
-    }.value
-
-
-    if (weatherData.loading == true) {
-        CircularProgressIndicator()
-    } else if (weatherData.data != null) {
-//        Text("Main Screen ${weatherData.data?.city}")
-        MainScaffold(weather = weatherData.data!!, navController = navController)
-    } else {
-        Text("Testing ${weatherData.loading}")
+fun WeatherMainScreen(
+    navController: NavController,
+    viewModel: WeatherMainViewModel,
+    city: String?,
+    settingsViewModel: SettingsViewModel = hiltViewModel()
+) {
+    val currentCity:String = if(city.isNullOrBlank()) "Gweru" else city
+    val unitFromDBRepository = settingsViewModel.unitList.collectAsState().value
+    var unit by remember {
+        mutableStateOf("imperial")
     }
+    var isImperial by remember {
+        mutableStateOf(false)
+    }
+
+    if (unitFromDBRepository.isNotEmpty()) {
+        unit = unitFromDBRepository[0].unit.split(" ")[0].lowercase()
+        isImperial = unit == "imperial"
+        val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
+            initialValue = DataOrException(
+                loading = true,
+            )
+        ) {
+            value = viewModel.getWeather(city = city!!,unit = unit)
+        }.value
+
+
+        if (weatherData.loading == true) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CircularProgressIndicator()
+            }
+        } else if (weatherData.data != null) {
+            MainScaffold(weather = weatherData.data!!, navController = navController)
+        } else {
+            Text("${weatherData.e?.message}")
+        }
+    }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

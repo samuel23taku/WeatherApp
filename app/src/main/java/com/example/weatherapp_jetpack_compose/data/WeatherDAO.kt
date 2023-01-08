@@ -1,13 +1,8 @@
 package com.example.weatherapp_jetpack_compose.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.DeleteTable
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.weatherapp_jetpack_compose.model.Favorite
+import com.example.weatherapp_jetpack_compose.model.Units
 import kotlinx.coroutines.flow.Flow
 
 
@@ -17,10 +12,10 @@ interface WeatherDAO {
     fun getFavorites(): Flow<List<Favorite>>
 
     @Query("SELECT * FROM favorite_table WHERE city = :city")
-    suspend fun getFavById(city:String):Favorite
+    suspend fun getFavById(city: String): Favorite
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend  fun insertFavorite(favorite: Favorite)
+    suspend fun insertFavorite(favorite: Favorite)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateFavorite(favorite: Favorite)
@@ -30,4 +25,14 @@ interface WeatherDAO {
 
     @Delete
     suspend fun deleteFavorite(favorite: Favorite)
+
+    @Query("SELECT * FROM settings_table")
+    fun getUnits(): Flow<List<Units>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUnits(unit: Units)
+
+    @Query("DELETE FROM settings_table")
+    suspend fun deleteUnits()
+
 }
