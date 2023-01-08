@@ -23,7 +23,7 @@ fun WeatherAboutScreen(navController: NavController) {
         topBar = {
             WeatherAppBar(
                 title = "About",
-                icon = Icons.Default.ArrowBack, navController = navController
+                icon = Icons.Default.ArrowBack, navController = navController, isOnMainScreen = false
             ) {
                 navController.popBackStack()
             }

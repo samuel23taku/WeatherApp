@@ -25,32 +25,6 @@ import com.example.weatherapp_jetpack_compose.utils.formatDateTime
 @Composable
 fun WeatherDetailRow(weatherItem: WeatherItem) {
     val imageUrl = "https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}.png"
-
-    @Composable
-    fun WeatherStatus(weatherStatus: String) {
-        Surface(
-            color = Color(0xFFFFC400),
-            shape = RoundedCornerShape(5.dp),
-
-            ) {
-            Text(
-                weatherStatus,
-                color = Color.Black,
-                style = MaterialTheme.typography.caption,
-                modifier = Modifier.padding(4.dp)
-            )
-        }
-    }
-
-    @Composable
-    fun HighLowWeather(high: Int, low: Int) {
-        Row {
-            Text("$high°", fontWeight = FontWeight.Bold, color = Color.Black)
-            Spacer(Modifier.width(8.dp))
-            Text("$low°", fontWeight = FontWeight.SemiBold, color = Color.LightGray)
-        }
-    }
-
 //Entrance
     Surface {
         Card(
@@ -79,6 +53,34 @@ fun WeatherDetailRow(weatherItem: WeatherItem) {
 
 
 }
+
+@Composable
+fun WeatherStatus(weatherStatus: String) {
+    Surface(
+        color = Color(0xFFFFC400),
+        shape = RoundedCornerShape(5.dp),
+
+        ) {
+        Text(
+            weatherStatus,
+            color = Color.Black,
+            style = MaterialTheme.typography.caption,
+            modifier = Modifier.padding(4.dp)
+        )
+    }
+}
+
+
+
+@Composable
+fun HighLowWeather(high: Int, low: Int) {
+    Row {
+        Text("$high°", fontWeight = FontWeight.Bold, color = Color.Black)
+        Spacer(Modifier.width(8.dp))
+        Text("$low°", fontWeight = FontWeight.SemiBold, color = Color.LightGray)
+    }
+}
+
 
 @Composable
 fun WeatherStateImage(imageUrl: String) {

@@ -1,4 +1,4 @@
-package com.example.weatherapp_jetpack_compose.screens
+package com.example.weatherapp_jetpack_compose.screens.viewmodels
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -21,20 +21,6 @@ class WeatherMainViewModel @Inject constructor(private val repository: WeatherRe
 
     suspend fun getWeather(city: String): DataOrException<Weather, Boolean, Exception> {
         return repository.getWeather(cityQuery = city)
-//        viewModelScope.launch {
-//            if (city.isEmpty()) return@launch
-//
-//            var response = repository.getWeather(cityQuery = city)
-//            data.value.loading = true
-//            Log.e("dataVar", "${data.value}")
-//            data.value = response
-//            Log.e("data", "${data.value.data}")
-//            if (data.value.data.toString().isNotEmpty()) {
-//                data.value.loading = false
-//                Log.e("dataUpdate", "${data.value.loading}")
-//            }
-//            Log.e("Get","${data}")
-//        }
     }
 
 }

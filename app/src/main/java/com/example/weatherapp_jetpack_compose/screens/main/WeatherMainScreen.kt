@@ -21,7 +21,7 @@ import com.example.weatherapp_jetpack_compose.data.DataOrException
 import com.example.weatherapp_jetpack_compose.model.Weather
 import com.example.weatherapp_jetpack_compose.model.WeatherItem
 import com.example.weatherapp_jetpack_compose.navigation.WeatherScreens
-import com.example.weatherapp_jetpack_compose.screens.WeatherMainViewModel
+import com.example.weatherapp_jetpack_compose.screens.viewmodels.WeatherMainViewModel
 import com.example.weatherapp_jetpack_compose.utils.formatDate
 import com.example.weatherapp_jetpack_compose.utils.formatDecimals
 import com.example.weatherapp_jetpack_compose.widgets.*

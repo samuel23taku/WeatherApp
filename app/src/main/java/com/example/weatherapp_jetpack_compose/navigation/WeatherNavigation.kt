@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.weatherapp_jetpack_compose.screens.main.WeatherMainScreen
-import com.example.weatherapp_jetpack_compose.screens.WeatherMainViewModel
+import com.example.weatherapp_jetpack_compose.screens.viewmodels.WeatherMainViewModel
 import com.example.weatherapp_jetpack_compose.screens.about.WeatherAboutScreen
 import com.example.weatherapp_jetpack_compose.screens.favorites.WeatherFavoriteScreen
 import com.example.weatherapp_jetpack_compose.screens.search.WeatherSearchScreen
