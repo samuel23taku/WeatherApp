@@ -42,7 +42,7 @@ fun WeatherAppBar(
     val showToast = remember {
         mutableStateOf(false)
     }
-    val toastMessage = remember{
+    val toastMessage = remember {
         mutableStateOf("")
     }
     val context = LocalContext.current
@@ -142,7 +142,6 @@ fun ShowSettingDropDownMenu(showDialog: MutableState<Boolean>, navController: Na
                 DropdownMenuItem(
                     onClick = {
                         expanded = false
-//                        showDialog.value = false
                         navController.navigate(
                             when (text) {
                                 "About" -> WeatherScreens.AboutScreen.name

@@ -34,7 +34,7 @@ fun WeatherMainScreen(
     city: String?,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
-    val currentCity:String = if(city.isNullOrBlank()) "Gweru" else city
+    val currentCity: String = if (city.isNullOrBlank()) "Gweru" else city
     val unitFromDBRepository = settingsViewModel.unitList.collectAsState().value
     var unit by remember {
         mutableStateOf("imperial")
@@ -43,32 +43,34 @@ fun WeatherMainScreen(
         mutableStateOf(false)
     }
 
-    if (unitFromDBRepository.isNotEmpty()) {
+    if(unitFromDBRepository.isNotEmpty()) {
         unit = unitFromDBRepository[0].unit.split(" ")[0].lowercase()
         isImperial = unit == "imperial"
-        val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
-            initialValue = DataOrException(
-                loading = true,
-            )
-        ) {
-            value = viewModel.getWeather(city = city!!,unit = unit)
-        }.value
-
-
-        if (weatherData.loading == true) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator()
-            }
-        } else if (weatherData.data != null) {
-            MainScaffold(weather = weatherData.data!!, navController = navController)
-        } else {
-            Text("${weatherData.e?.message}")
-        }
+    }else{
+        unit = "metric"
     }
+    val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
+        initialValue = DataOrException(
+            loading = true,
+        )
+    ) {
+        value = viewModel.getWeather(city = currentCity, unit = unit)
+    }.value
+
+    if (weatherData.loading == true) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CircularProgressIndicator()
+        }
+    } else if (weatherData.data != null) {
+        MainScaffold(weather = weatherData.data!!, navController = navController)
+    } else {
+        Text("${weatherData.e?.message}")
+    }
+
 
 }
 
